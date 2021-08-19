@@ -1,24 +1,20 @@
+import os
 import time
 import hashlib
 from urllib.request import urlopen, Request
 from twilio.rest import Client
 from dotenv import load_dotenv
-import os
+import yaml
 
 
 load_dotenv('.env')
 account_sid = os.getenv('TWILIO_ACCOUNT_SID')
 auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 client = Client(account_sid, auth_token)
-
-website = 'https://space-invaders.com/spaceshop/product/99108775083900940'
-# website = 'https://hypebeast.com/'
-text_message = 'Website change! https://space-invaders.com/spaceshop'
-to_number = '+14155192029'
-ping_frequency = 5  # in seconds
+track_config = yaml.safe_load(open(os.getcwd() + "\\config.yml"))
 
 
-def track(website, text_message, to_number):
+def track(website, text_message, to_number, ping_frequency):
     # create initial hash
     url = Request(website,
                   headers={'User-Agent': 'Mozilla/5.0'})
@@ -66,4 +62,9 @@ def track(website, text_message, to_number):
 
 
 if __name__ == '__main__':
-    track(website, text_message, to_number)
+    website = track_config['website']
+    text_message = track_config['text_message']
+    phone_number = track_config['recipient_phone_number']
+    ping_frequency_seconds = track_config['ping_frequency_seconds']
+    track(website, text_message, phone_number, ping_frequency_seconds)
+
