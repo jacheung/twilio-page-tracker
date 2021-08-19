@@ -9,19 +9,20 @@ Twilio page tracker overcomes these limitations by creating a free easily hostab
 
 There are a couple steps to set up: 
 
-1) Clone this github repo locally
+#### 1) Clone this github repo locally
 
-2) Twilio - this will allow you to receive SMS notifications
+#### 2) Twilio - this will allow you to receive SMS notifications
 - create a twilio account  
 - in a text editor of your choice, create a file named ".env" and populate with two parameters from your newly set up Twilio account:
 **TWILIO_ACCOUNT_SID**=*fillwithyouraccountid*  
 **TWILIO_AUTH_TOKEN**=*fillwithyourauthtoken*
 
-![](/_pictures/env_file_example.png)
+![](/_pictures/env_file_example.PNG)  
 *obviously not my actual account and token. Make sure to replace with your own.*
 
-3) config.yml
-- this file will determine what is tracked, your phone number, and where/what is sent as a notification    
+#### 3) config.yml
+this file will determine what is tracked, your phone number, and where/what is sent as a notification
+
 **website**: website you'd like to track (enclose in apostrophes)  
 **text_message**: message you'd like to be sent from text (enclose in apostrophes)  
 **twilio_phone_number**: from twilio you can request a number. Input that here (enclose in apostrophes)  
@@ -29,4 +30,4 @@ There are a couple steps to set up:
 **ping_frequency_seconds**: sampling frequency in seconds (integer value i.e. a whole number)  
 
 
-4) Heroku hosting
+#### 4) Heroku hosting
