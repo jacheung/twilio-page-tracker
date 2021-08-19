@@ -7,8 +7,9 @@ from dotenv import load_dotenv
 import yaml
 
 
-load_dotenv('.env')
+
 # FOR LOCAL:
+# load_dotenv('.env')
 # account_sid = os.getenv('TWILIO_ACCOUNT_SID')
 # auth_token = os.getenv('TWILIO_AUTH_TOKEN')
 
@@ -25,7 +26,12 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
                   headers={'User-Agent': 'Mozilla/5.0'})
     response = urlopen(url).read()
     current_hash = hashlib.sha224(response).hexdigest()
-    print("Starting monitoring...")
+    print("Starting monitor...")
+    client.messages.create(
+        body='Tracker for ' + website + ' is now live!',
+        from_=twilio_phone_number,
+        to=recipient_phone_number
+    )
     while True:
         try:
             # wait for 5 seconds
@@ -33,12 +39,6 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
 
             response = urlopen(url).read()
             new_hash = hashlib.sha224(response).hexdigest()
-
-            client.messages.create(
-                body='Tracker is now live!',
-                from_=twilio_phone_number,
-                to=recipient_phone_number
-            )
 
             # check if new hash is same as the previous hash
             if new_hash == current_hash:
@@ -66,7 +66,7 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
         except Exception:
             client.messages.create(
                 body="Code has broken. :'(",
-                from_='+17472479302',
+                from_=twilio_phone_number,
                 to=recipient_phone_number
             )
             break
