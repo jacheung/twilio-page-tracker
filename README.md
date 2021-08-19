@@ -17,7 +17,7 @@ There are a couple steps to set up:
 **TWILIO_ACCOUNT_SID**=*fillwithyouraccountid*  
 **TWILIO_AUTH_TOKEN**=*fillwithyourauthtoken*
 
-![](/_pictures/env_file_example.png)
+![](/_pictures/env_file_example.PNG)  
 *obviously not my actual account and token. Make sure to replace with your own.*
 
 #### 3) config.yml
