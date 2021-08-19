@@ -14,7 +14,7 @@ client = Client(account_sid, auth_token)
 track_config = yaml.safe_load(open(os.getcwd() + "\\config.yml"))
 
 
-def track(website, text_message, to_number, ping_frequency):
+def track(website, text_message, twilio_phone_number, recipient_phone_number, ping_frequency_seconds):
     # create initial hash
     url = Request(website,
                   headers={'User-Agent': 'Mozilla/5.0'})
@@ -24,7 +24,7 @@ def track(website, text_message, to_number, ping_frequency):
     while True:
         try:
             # wait for 5 seconds
-            time.sleep(ping_frequency)
+            time.sleep(ping_frequency_seconds)
 
             response = urlopen(url).read()
             new_hash = hashlib.sha224(response).hexdigest()
@@ -39,8 +39,8 @@ def track(website, text_message, to_number, ping_frequency):
                 # notify via Twilio
                 client.messages.create(
                     body=text_message,
-                    from_='+17472479302',
-                    to=to_number
+                    from_=twilio_phone_number,
+                    to=recipient_phone_number
                 )
 
                 # again read the website and update the hash
@@ -48,7 +48,7 @@ def track(website, text_message, to_number, ping_frequency):
                 current_hash = hashlib.sha224(response).hexdigest()
 
                 # wait before pinging
-                time.sleep(ping_frequency)
+                time.sleep(ping_frequency_seconds)
                 continue
 
         # To handle exceptions
@@ -56,15 +56,15 @@ def track(website, text_message, to_number, ping_frequency):
             client.messages.create(
                 body="Code has broken. :'(",
                 from_='+17472479302',
-                to=to_number
+                to=recipient_phone_number
             )
             break
 
 
 if __name__ == '__main__':
-    website = track_config['website']
-    text_message = track_config['text_message']
-    phone_number = track_config['recipient_phone_number']
-    ping_frequency_seconds = track_config['ping_frequency_seconds']
-    track(website, text_message, phone_number, ping_frequency_seconds)
+    track(website=track_config['website'],
+          text_message=track_config['text_message'],
+          twilio_phone_number=track_config['twilio_phone_number'],
+          recipient_phone_number=track_config['recipient_phone_number'],
+          ping_frequency_seconds=track_config['ping_frequency_seconds'])
 
