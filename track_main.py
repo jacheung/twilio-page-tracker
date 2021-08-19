@@ -34,6 +34,12 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
             response = urlopen(url).read()
             new_hash = hashlib.sha224(response).hexdigest()
 
+            client.messages.create(
+                body='Tracker is now live!',
+                from_=twilio_phone_number,
+                to=recipient_phone_number
+            )
+
             # check if new hash is same as the previous hash
             if new_hash == current_hash:
                 print('no change')
