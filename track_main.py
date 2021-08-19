@@ -8,8 +8,13 @@ import yaml
 
 
 load_dotenv('.env')
-account_sid = os.getenv('TWILIO_ACCOUNT_SID')
-auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+# FOR LOCAL:
+# account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+# auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+
+# FOR HEROKU:
+account_sid = os.environ['TWILIO_ACCOUNT_SID']
+auth_token = os.environ['TWILIO_AUTH_TOKEN']
 client = Client(account_sid, auth_token)
 track_config = yaml.safe_load(open(os.getcwd() + "\\config.yml"))
 
