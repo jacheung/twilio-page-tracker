@@ -7,19 +7,6 @@ from dotenv import load_dotenv
 import yaml
 
 
-
-# FOR LOCAL:
-# load_dotenv('.env')
-# account_sid = os.getenv('TWILIO_ACCOUNT_SID')
-# auth_token = os.getenv('TWILIO_AUTH_TOKEN')
-
-# FOR HEROKU:
-account_sid = os.environ['TWILIO_ACCOUNT_SID']
-auth_token = os.environ['TWILIO_AUTH_TOKEN']
-client = Client(account_sid, auth_token)
-track_config = yaml.safe_load(open(os.getcwd() + "\\config.yml"))
-
-
 def track(website, text_message, twilio_phone_number, recipient_phone_number, ping_frequency_seconds):
     # create initial hash
     url = Request(website,
@@ -73,6 +60,19 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
 
 
 if __name__ == '__main__':
+    try:
+        # FOR LOCAL:
+        load_dotenv('.env')
+        account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+        auth_token = os.getenv('TWILIO_AUTH_TOKEN')
+    except NameError:
+        # FOR HEROKU:
+        account_sid = os.environ['TWILIO_ACCOUNT_SID']
+        auth_token = os.environ['TWILIO_AUTH_TOKEN']
+
+    client = Client(account_sid, auth_token)
+    track_config = yaml.safe_load(open(os.getcwd() + "\\config.yml"))
+
     track(website=track_config['website'],
           text_message=track_config['text_message'],
           twilio_phone_number=track_config['twilio_phone_number'],
