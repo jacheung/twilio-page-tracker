@@ -71,7 +71,7 @@ if __name__ == '__main__':
         auth_token = os.environ['TWILIO_AUTH_TOKEN']
 
     client = Client(account_sid, auth_token)
-    track_config = yaml.safe_load(open(os.getcwd() + "\\config.yml"))
+    track_config = yaml.safe_load(open(os.path.abspath('config.yml')))
 
     track(website=track_config['website'],
           text_message=track_config['text_message'],
