@@ -29,7 +29,6 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
 
             # check if new hash is same as the previous hash
             if new_hash == current_hash:
-                print('no change')
                 continue
 
             # if something changed in the hashes
