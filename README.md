@@ -1,17 +1,19 @@
 
-# page tracker via Twilio SMS and host via Heroku 
+# page tracker via Twilio SMS and hosting via Heroku 
 
-Page trackers are valuable tools with various use cases such as price or item-restock monitoring, news notifications, or seeing when a competitor's website has changed. However, current trackers such as [visualping](https://visualping.io/) run in browser with great ping frequency (ceiling of 1s) but eats up valuable compute resources, assumes that your PC is constantly on, and also assumes that you're nearby to receive the notification. Visualping also offers a remote solution but the ping frequency is low (sampling frequency ceiling of 5 minutes, 65 checks/month) and increasing checks/month will incur fees. 
+Page trackers are valuable tools with various use cases such as price or item-restock monitoring or notifications when a news article has released.
 
-Twilio page tracker overcomes these limitations by creating a free easily hostable application with a simple config file. The application is Heroku hostable ready and can run 24/7 on a free tier (overcoming challenges of checks/month), sample at a frequency of 1 second (matching visualping's ceiling rate), and provide SMS notifications when any change is detected. 
+Current trackers such as [visualping](https://visualping.io/) run in browser with great sampling frequency (ceiling of 1s) but eats up valuable compute resources and assumes you're nearby to receive the notification. A remote solution exists but the sampling frequency is low and increasing checks/month will incur fees (5 minutes, 65 checks/month limit for free tier).
 
-## Setup and deployment
+Twilio page tracker overcomes these limitations by creating a **free and easily hostable application** with a simple config file. The application is Heroku hostable ready, runs 24/7, can sample at a frequency of 1 second, and provide SMS notifications when any change is detected. 
+
+## Setup and deployments
 
 There are a couple steps for set up and deployment: 
 
-#### 1) Clone this github repo
+### 1) Clone this github repo
 
-#### 2) config.yml 
+### 2) Edit config.yml 
 this file lives within the repo and will determine what is tracked, what number to send the notification to, and where/what is sent as a notification
 
 > **website**: website you'd like to track (enclose in apostrophes)  
@@ -21,12 +23,14 @@ this file lives within the repo and will determine what is tracked, what number 
 > **ping_frequency_seconds**: sampling frequency in seconds (integer value i.e. a whole number)  
 
 
-#### 3) Twilio - this API will allow you to receive SMS notifications
-> - create a twilio account  
+### 3) Twilio - this API will allow you to receive SMS notifications
+> create a twilio account  
 
-##### **Recommended: Running on Heroku.**  
+#### **Recommended: Running on Heroku.**  
 
-This method allows for the page tracker to run automatically without draining your computational resources. Heroku's free tier provides 550 hours plus another 450 hours per month (plenty as one month as 744 hours TOPS). The below details will allow your app in Heroku to connect to Twilio and send SMS notifications.  
+This method allows for the page tracker to run automatically without draining your computational resources. Heroku's free tier provides 550 hours plus another 450 hours per month if you enter your credit card details (plenty as one month has 744 hours TOPS). 
+
+The below details will allow your app in Heroku to connect to Twilio and send SMS notifications.  
 
 > - sign up for [heroku](https://www.heroku.com/)  
 > - create a new app and name it whatever you'd like  
@@ -37,22 +41,21 @@ This method allows for the page tracker to run automatically without draining yo
 *populate Heroku Config Vars with the above two keys.*
 
 
-##### **IF YOU'D LIKE TO RUN THIS CODE LOCALLY** 
-> - in a text editor of your choice, create a file named ".env" and populate with two parameters from your newly set up Twilio account:  
-> **TWILIO_ACCOUNT_SID**=*fillwithyouraccountid*  
-> **TWILIO_AUTH_TOKEN**=*fillwithyourauthtoken*  
+#### **Not recommended: Running locally** 
+> - in a text editor of your choice, create a file named ".env" 
+> - populate **TWILIO_ACCOUNT_SID** and **TWILIO_AUTH_TOKEN** from your newly minted Twilio account 
 
 ![](/_pictures/env_file_example.PNG)  
 *not my actual account and token. Make sure to replace with your own.*
 
 
-##### 4) Heroku hosting - this service will allow your app to run 24/7
-If running locally, you can skip this step and run in your IDE of choice. I use PyCharm when I run locally. If running in Heroku...    
+### 4) Heroku hosting - this service will allow your app to run 24/7
+If running locally, you can skip this step and run track_main.py in your IDE of choice. I use PyCharm when I run locally. If running in Heroku.    
 
 > - under your app in Heroku > 'Deploy' > 'Deployment method' > 'Github'  
 > - login to your GitHub account where you've pushed your cloned and edited repo (i.e. config.yml) of twilio-page-tracker  
 > - after connecting, Heroku should build and deploy your application   
-> - >'Activity' to see if your build was successful  
+> - 'Activity' to see if your build was successful  
 
 > if *SUCCESS*: > 'Resources' > edit dyno formation > switch to 'ON'/ turns blue.  
 > You should receive a text saying "Tracker for your website is now live!"    
@@ -66,5 +69,4 @@ If running locally, you can skip this step and run in your IDE of choice. I use 
 
 
 ## Close
-If you like this app and want to contribute to it, make a pull request! Feel free to reach out if you have any questions. Happy to help!
-
+If you like this app and want to contribute to it, make a pull request! Feel free to reach out if you have any questions. 
