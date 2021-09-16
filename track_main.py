@@ -13,12 +13,6 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
                   headers={'User-Agent': 'Mozilla/5.0'})
     response = urlopen(url).read()
     current_hash = hashlib.sha224(response).hexdigest()
-    print("Starting monitor...")
-    client.messages.create(
-        body='Tracker for ' + website + ' is now live!',
-        from_=twilio_phone_number,
-        to=recipient_phone_number
-    )
     while True:
         try:
             # wait for 5 seconds
@@ -50,11 +44,6 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
 
         # To handle exceptions
         except Exception:
-            client.messages.create(
-                body="Code has broken. :'(",
-                from_=twilio_phone_number,
-                to=recipient_phone_number
-            )
             break
 
 
