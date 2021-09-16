@@ -13,6 +13,7 @@ def track(website, text_message, twilio_phone_number, recipient_phone_number, pi
                   headers={'User-Agent': 'Mozilla/5.0'})
     response = urlopen(url).read()
     current_hash = hashlib.sha224(response).hexdigest()
+    print('Starting tracker...')
     while True:
         try:
             # wait for 5 seconds
