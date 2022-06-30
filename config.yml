@@ -1,5 +1,5 @@
-website: 'https://shop.thinkspaceprojects.com/
-text_message: 'Website change! https://shop.thinkspaceprojects.com/'
+website: 'https://space-invaders.com/spaceshop/product/99686851475931136'
+text_message: 'Website change! https://space-invaders.com/spaceshop/product/99686851475931136'
 twilio_phone_number: '+17472479302'
 recipient_phone_number: '+14155192029'
 ping_frequency_seconds: 5 
