@@ -2,4 +2,4 @@ website: 'https://mima-online-shop.myshopify.com/'
 text_message: 'Website change! https://mima-online-shop.myshopify.com/'
 twilio_phone_number: '+17472479302'
 recipient_phone_number: '+14155192029'
-ping_frequency_seconds: 5 
+ping_frequency_seconds: 30
